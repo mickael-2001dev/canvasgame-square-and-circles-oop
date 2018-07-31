@@ -9,7 +9,7 @@ $(document).ready(function(){
     function drawScreen(){
         
         $(document).keydown(function(e){
-            key = e.which;
+            key = e.key;
         });
         
         $(document).keyup(function(e){
@@ -25,7 +25,8 @@ $(document).ready(function(){
         ctx.strokeRect(0,0,500,300);
         
         r1.draw(ctx);
-        r1.moveRandom(key);
+        //r1.moveRandom(key);
+        r1.moveByArrows(key);
         
         
         window.requestAnimationFrame(drawScreen);
@@ -48,19 +49,20 @@ function Rect(xPosition, yPosition, width, height, color, speed){
 		ctx.fillRect(this.xPosition, this.yPosition, this.width, this.height, this.color);
     }
 
-    this.moveByArrows = function(key) {
-        if(key === 38) {
+    this.moveByArrows = function (key) {
+        console.log(this.yPosition);
+        if (key === "ArrowUp" && this.yPosition !== 0) {
             this.yPosition-=this.speed;
-        } 
-        if(key === 40) {
-            this.yPosition+=this.speed;
+        }
+        if (key === "ArrowDown" && this.yPosition < 300 - this.height) {
+            this.yPosition += this.speed;
         } 
 
-        if(key === 39) {
+        if (key === "ArrowRight" && this.xPosition < 500 - this.width) {
             this.xPosition+=this.speed;
         } 
 
-        if(key === 37) {
+        if (key === "ArrowLeft" && this.xPosition !== 0) {
             this.xPosition-=this.speed;
         } 
     }
